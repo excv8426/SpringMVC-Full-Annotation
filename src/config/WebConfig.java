@@ -14,6 +14,13 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.socket.config.annotation.EnableWebSocket;
+import org.springframework.web.socket.config.annotation.SockJsServiceRegistration;
+import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
+import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
+import org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor;
+
+import javasrc.service.WSHandler;
 
 
 @Configuration
@@ -22,9 +29,14 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @EnableTransactionManagement
 @EnableScheduling
 @EnableWebMvc
-public class WebConfig extends WebMvcConfigurerAdapter {
+@EnableWebSocket
+public class WebConfig extends WebMvcConfigurerAdapter implements WebSocketConfigurer {
+	
 	@Autowired
 	private Environment env;
+	@Autowired
+	private WSHandler wsHandler;
+	
 	/**
 	 * 配置数据源（tomcat jdbc 连接池）*/
 	@Bean
@@ -70,6 +82,16 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		CommonsMultipartResolver commonsMultipartResolver=new CommonsMultipartResolver();
 		commonsMultipartResolver.setMaxUploadSize(209715200);
 		return commonsMultipartResolver;
+	}
+
+	@Override
+	public void registerWebSocketHandlers(WebSocketHandlerRegistry webSocketHandlerRegistry) {
+		SockJsServiceRegistration sockJsServiceRegistration=webSocketHandlerRegistry
+				.addHandler(wsHandler, "/webSocketServer")
+				.addInterceptors(new HttpSessionHandshakeInterceptor())
+				.withSockJS();
+		sockJsServiceRegistration.setClientLibraryUrl("//cdn.jsdelivr.net/sockjs/1/sockjs.min.js");
+		
 	}
 	
 }

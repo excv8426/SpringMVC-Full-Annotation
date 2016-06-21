@@ -34,7 +34,7 @@ public class MyWebAppInitializer extends
 	@Override
 	protected String[] getServletMappings() {
 		System.out.println("配置URL映射。");
-		return new String[]{"*.do"}; 
+		return new String[]{"*.do","/websocket/*"}; 
 	}
 	
 	/**

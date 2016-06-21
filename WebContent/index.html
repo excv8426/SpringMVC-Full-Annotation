@@ -5,13 +5,14 @@
 <title>Insert title here</title>
 <script type="text/javascript" src="jquery-ui-1.11.4/jquery-1.11.3.min.js"> </script>
 <script type="text/javascript" src="jquery-ui-1.11.4/jquery-ui.js"> </script>
+<script src="//cdn.jsdelivr.net/sockjs/1/sockjs.min.js"></script>
 <link type="text/css" rel="stylesheet" href="jquery-ui-1.11.4/jquery-ui.css" />
 
 <script type="text/javascript">
 $(function(){
 	$("#submit").bind("click",function(){
 		$.ajax({
-			cache:false;
+			cache:false,
 			url:"hello.do",
 			data:{myname:$("#name").val()},
 			dataType:"text",
@@ -20,11 +21,37 @@ $(function(){
 			}
 		});
 	});
+	
+	$("#ws_connect").bind("click",function(){
+		var sock = new SockJS('http://localhost:8080/SpringMVC-Full-Annotation/websocket/webSocketServer');
+		sock.onopen = function() {
+			console.log('open');
+		};
+		/* sock.onmessage = function(e) {
+			console.log('message', e.data);
+		}; */
+		sock.onerror = function (evnt) {
+	    	console.log(evnt);
+	    };
+		sock.onclose = function() {
+		     console.log('close');
+		};
+		//sock.send('test');
+		//sock.close();
+	});
 });
 </script>
 </head>
 <body>
-<input type="text" id="name" />
-<input type="button" id="submit" />
+	<div>
+		<div>
+			<input type="text" id="name" /> <input type="button" id="submit"
+				value="Ajax Submit" />
+		</div>
+		<div>
+			<input type="text" id="servertime" /> <input type="button"
+				id="ws_connect" value="WS Connect" />
+		</div>
+	</div>
 </body>
 </html>

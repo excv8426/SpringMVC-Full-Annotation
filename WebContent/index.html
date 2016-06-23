@@ -27,9 +27,10 @@ $(function(){
 		sock.onopen = function() {
 			console.log('open');
 		};
-		/* sock.onmessage = function(e) {
+		sock.onmessage = function(e) {
+			$("#servertime").val(e.data);
 			console.log('message', e.data);
-		}; */
+		}; 
 		sock.onerror = function (evnt) {
 	    	console.log(evnt);
 	    };

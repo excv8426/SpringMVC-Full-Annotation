@@ -17,7 +17,7 @@ $(function(){
 			data:{myname:$("#name").val()},
 			dataType:"text",
 			success:function(data){
-				alert(data);
+				console.log(data);
 			}
 		});
 	});
@@ -40,6 +40,18 @@ $(function(){
 		//sock.send('test');
 		//sock.close();
 	});
+	
+	$("#testAOP").bind("click",function(){
+		$.ajax({
+			cache:false,
+			url:"testAOP.do",
+			data:{myname:$("#name").val()},
+			dataType:"text",
+			success:function(data){
+				console.log(data);
+			}
+		});
+	});
 });
 </script>
 </head>
@@ -52,6 +64,10 @@ $(function(){
 		<div>
 			<input type="text" id="servertime" /> <input type="button"
 				id="ws_connect" value="WS Connect" />
+		</div>
+		<div>
+			<input type="button"
+				id="testAOP" value="testAOP" />
 		</div>
 	</div>
 </body>

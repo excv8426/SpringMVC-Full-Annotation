@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javasrc.component.ServiceParam;
 import javasrc.service.PrototypeService;
+import javasrc.service.TestAOP;
 
 @Controller
 public class Hello {
@@ -25,6 +26,8 @@ public class Hello {
 	private PrototypeService service;
 	@Autowired
 	private ServiceParam param;
+	@Autowired
+	private TestAOP testAOP;
 	
 	@ModelAttribute
 	public void getsession(HttpServletRequest request){
@@ -42,5 +45,10 @@ public class Hello {
 		System.out.println("Controller thread:"+Thread.currentThread());
 		System.out.println(service.getY());
 		return "hello"+name;
+	}
+	
+	@RequestMapping("/testAOP")
+	public @ResponseBody String testAOP() throws InterruptedException{
+		return String.valueOf(testAOP.runAop(1, 2));
 	}
 }

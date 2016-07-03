@@ -23,12 +23,12 @@ public class AutoTask {
 	
 	@Scheduled(cron="*/1 * * * * ?" )
 	private void push(){
-		try {
+		/*try {
 			wsHandler.pushDate();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 	}
 	
 }

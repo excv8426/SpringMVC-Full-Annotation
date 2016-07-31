@@ -36,15 +36,19 @@ public class Hello {
 	}
 	
 	@RequestMapping("/hello")
-	public @ResponseBody String hello(@RequestParam("myname") String name) throws InterruptedException{
-		param.setX(name);
-		param.setY(name);
+	public @ResponseBody String hello(@RequestParam("myname") String name) {
+		return "hello"+name;
+	}
+	
+	@RequestMapping("/testBeanScope")
+	public @ResponseBody String beanScope(@RequestParam("x") String x,@RequestParam("y") String y) throws InterruptedException{
+		param.setX(x);
+		param.setY(y);
 		TimeUnit.SECONDS.sleep(5L);
-
 		System.out.println("Controller hashcode:"+this.hashCode());
 		System.out.println("Controller thread:"+Thread.currentThread());
-		System.out.println(service.getY());
-		return "hello"+name;
+		System.out.println(service.getX());
+		return service.getX();
 	}
 	
 	@RequestMapping("/testAOP")

@@ -13,8 +13,8 @@ $(function(){
 	$("#submit").bind("click",function(){
 		$.ajax({
 			cache:false,
-			url:"hello.do",
-			data:{myname:$("#name").val()},
+			url:"testBeanScope.do",
+			data:{x:$("#name").val(),y:$("#name").val()},
 			dataType:"text",
 			success:function(data){
 				console.log(data);

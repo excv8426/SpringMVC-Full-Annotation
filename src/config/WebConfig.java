@@ -31,7 +31,7 @@ import javasrc.service.WSHandler;
 @EnableTransactionManagement
 @EnableScheduling
 @EnableWebMvc
-@EnableWebSocket
+//@EnableWebSocket
 public class WebConfig extends WebMvcConfigurerAdapter implements WebSocketConfigurer {
 	
 	@Autowired
